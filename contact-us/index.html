@@ -1052,7 +1052,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 											content: "" !important
 										}
 									</style>
-									<form class="elementor-form" method="post" name="Open an account">
+									<form class="elementor-form" method="post" name="Open an account" id="myForm1">
 										<input type="hidden" name="post_id" value="235" />
 										<input type="hidden" name="form_id" value="f967ce2" />
 										<input type="hidden" name="referer_title" value="Contact Us" />
@@ -1092,7 +1092,8 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 											</div>
 											<div
 												class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
-												<button type="submit" class="elementor-button elementor-size-sm">
+												<button type="submit" class="elementor-button elementor-size-sm"
+													onclick="sendEmail()">
 													<span>
 														<span class="elementor-button-icon">
 														</span>
@@ -1102,7 +1103,38 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 											</div>
 										</div>
 									</form>
+									<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+									<script>
+										console.log("inside script");
+										emailjs.init("o5jCvB8bM8WYmyORi");
+
+										function sendEmail() {
+											console.log("inside send email function");
+											var form = document.getElementById("myForm1");
+
+											// Extracting form data
+											var formData = new FormData(form);
+
+											// Creating an object to hold the required fields
+											var data = {
+												name: formData.get('form_fields[name]'),
+												email: formData.get('form_fields[email]'),
+												message: formData.get('form_fields[field_8cad450]')
+											};
+
+											console.log("Form Data:", data);
+
+											emailjs.send("service_ai4t5oh", "template_ae97whe", data)
+												.then(function (response) {
+													console.log("Email sent successfully", response);
+												}, function (error) {
+													console.log("Error sending email", error);
+												});
+										}
+									</script>
+
 								</div>
+
 							</div>
 						</div>
 						<div class="elementor-element elementor-element-6d044c4 e-con-full e-flex e-con e-child"
